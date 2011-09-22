@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Sep 22, 2011}
+\maketitle
+
+\section{Relational Algebra}
+
+\subsection{Operators}
+
+Look at slides.
+
+\subsection{Selection}
+
+Returns a subset of tuples from the entity.
+
+\subsection{Projection}
+
+Returns a subset of attributes from an expression.
+
+\subsection{Rename}
+
+Renames attributes in the list.
+
+\subsection{Product}
+
+\begin{itemize}
+    \item Result has a tuple for every distinct pair of tuples in the two
+        expressions.
+    \item Need to rename when $E_1$ and $E_2$ have collisions in attribute
+        names \textit{i.e.} can't chare attributes.
+\end{itemize}
+
+\subsection{Join}
+
+\begin{itemize}
+    \item The same as a cross product, then selection, \textit{i.e.}
+        \[
+        E_1 \Join_{condition} E_2 = \sigma_{condition}(E_1 \times E_2)
+        \]
+    \item Natural join uses the implied constraint on foreign keys.
+\end{itemize}
+
+
+
+\end{document}
+% vim: tw=80
