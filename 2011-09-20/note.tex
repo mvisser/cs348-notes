@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+
+% command definitions
+\newcommand{\Scr}[1]{\ensuremath{\mathcal{#1}}}
+\newcommand{\Lang}{\ensuremath{\Scr{L}^p}}
+\newcommand{\Atom}{\ensuremath{\text{Atom}(\Lang)}}
+\newcommand{\Form}{\ensuremath{\text{Form}(\Lang)}}
+\newcommand{\Nat}{\ensuremath{\mathbb{N}}}
+\newcommand{\Valu}{\ensuremath{ t:\Atom \to \{0,1\}}}
+\newcommand{\limplies}{\ensuremath{\to}}
+\newcommand{\ltauteq}{\ensuremath{\models\!\!\!|}}
+\newcommand{\liff}{\ensuremath{\leftrightarrow}}
+\newcommand{\Term}{\ensuremath{\text{Term}(\Scr{L})}}
+\newcommand{\AtomL}{\ensuremath{\text{Atom}(\Scr{L})}}
+\newcommand{\FormL}{\ensuremath{\text{Form}(\Scr{L})}}
+\newcommand{\Temp}{\ensuremath{\text{Temp}(\Scr{L})}}
+\newcommand{\Cond}[1]{\ensuremath{\,\llparenthesis\,#1\,\rrparenthesis\,}}
+\newcommand{\Group}[1]{\ensuremath{\langle #1 \rangle}}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Sep 20, 2011}
+\maketitle
+
+\section{The Relational Model}
+
+\textbf{Main Idea:}  All information is organized in (flat) relations.
+
+A row in a table is a relation between its fields, and where it is stored.
+
+Consider \texttt{Student( Num, Name, Age )}. If we want to define that no two
+students can have the same number and no student can have the same name:
+\begin{equation}
+    \forall x_1, y_1 x_2, y_2 x_3, y_3 ( ( Student (x_1,y_1,x) \lor
+    Student(x_2,y_2,x) \lor y_1 = y_2) \limplies (x_1 = x_2))
+\end{equation}
+
+
+\subsection{Formal Definition}
+
+\begin{description}
+    \item[Universe:] A set of atomic values $D$ with equality (=).
+    \item[Domain]  A name $D$ with a set of values $\text{dom}(D) \subseteq D$
+    \item[Relation] 
+        \begin{description}
+            \item[Schema:] $R(A_1:D_1,A_2:D_2,\dots,A_k:D_k)$ with
+                \begin{itemize}
+                    \item name $R$
+                    \item $A_1, \dots A_k$ a set of distinct attribute names
+                    \item $D_1,\dots,D_k$ a collection of (net necessarily distinct)
+                        domain names
+                \end{itemize}
+            \item[Instance:] A \textit{finite} relation $R\subseteq
+                \text{dom}\left( D_1 \right)\times \dots \times \text{dom}\left(
+                D_k \right)$
+        \end{description}
+\end{description}
+
+\textit{See slide 4 of \texttt{relmodel-handout.pdf}}.
+
+\subsection{Properties}
+
+\begin{enumerate}
+    \item Based on set theory
+    \item All attribute values are atomic -- 
+    \item Degree (arity) is the number of attributes in the schema
+    \item Cardinality is the number of tuples in an instance.
+\end{enumerate}
+
+This means that once you get a column value, you are as deep as you can get in
+terms of relations.
+
+\textit{Example database on slide 6 of \texttt{relmodel-handout.pdf}}.
+
+\subsection{SQL Vs Relational Model}
+
+\begin{enumerate}
+    \item Semantics of instances
+        \begin{itemize}
+            \item Relations are sets of tuples
+            \item Tables are multisets of tuples
+        \end{itemize}
+    \item Unknown values
+        \begin{itemize}
+            \item SQL can have values as null.
+        \end{itemize}
+\end{enumerate}
+
+\subsection{Integrity Constraints}
+
+Extend the relational model with constraints on data. A schema is only valid if
+it meets all constraints.
+
+You would want to do this if
+\begin{enumerate}
+    \item You want to ensure the data is as expected and as designed. Closer to
+        what you intended than what can happen.
+    \item Protect from bugs
+\end{enumerate}
+
+There are different types of constraints
+\begin{itemize}
+    \item Tuple-level
+        \begin{itemize}
+            \item Domain restructions, attribute comparisons
+        \end{itemize}
+    \item Relation-level
+        \begin{itemize}
+            \item Key constraints -- can be determined by a row in a table.
+                \begin{itemize}
+                    \item Super key: A subset of columns such that no two rows
+                        will have the same values of these columns. An example
+                        is that in a set of rows, no row will have all columns
+                        the same.
+                    \item Candidate key: A minimal superkey. The minimal set of
+                        columns that uniquely identify a row.
+                    \item Primary key: A candidate key that uniquely identifies
+                        a row. Used for joins, referencing a
+                        column,\textit{etc.} Expect that it is never null and is
+                        immutable.
+                \end{itemize}
+            \item Functional Dependencies
+        \end{itemize}
+    \item Database-level
+        \begin{itemize}
+            \item Referential integrity
+                \begin{itemize}
+                    \item Foreign key: primary key of one relation appearing as
+                        an attribute in another relation
+                    \item Referential integrity: a tuple with a non-null value
+                        for a foreign key that does not match the primary key
+                        value of a tuple in the referenced relation isn't
+                        allowed
+                \end{itemize}
+            \item Inclusion dependencies.
+                $R(A_1,\dots,A_k \subseteq S(B_1,\dots,B_k)$
+        \end{itemize}
+\end{itemize}
+
+\section{Relational Algebra}
+
+\begin{itemize}
+    \item Consists of a set of \textit{operators}.
+    \item it is \textit{closed}
+    \item Notation: $R$ is a relation name; $E$ is an expression.
+\end{itemize}
+
+\textit{To be continued\dots}
+
+
+\end{document}
+% vim: tw=80

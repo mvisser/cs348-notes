@@ -1,0 +1,119 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Sep 15, 2011}
+\maketitle
+
+\section*{Schemas}
+\subsection*{3-Level Schema Architecture}
+
+\begin{enumerate}
+    \item External Schema (view): what the applications see.
+    \item Conceptual Schema: Description of structure of \textit{all} data in
+        database.
+    \item Physical schema: Description of physical aspects (files, devices,
+        algorithms, etc.)
+\end{enumerate}
+
+\begin{description}
+    \item[Database Instance:] A database with real data that conforms to a
+        schema.
+\end{description}
+
+See slide 14 of \texttt{overview-present.pdf}.
+
+\subsection*{Data Independence}
+
+There are 2 kinds:
+\begin{description}
+    \item[Physical:] immune to changes in storage structure.
+    \item[Logical:] immune to changes in data organization.
+\end{description}
+
+\subsection*{Interfacing to DBMS}
+
+\begin{description}
+    \item[DataDefinition Language (DDL):] specifies schemas.
+    \item[Data Manipulation Language (DML):] Specifies queries and updates.
+        \begin{itemize}
+            \item navigational (procedural): application logic needs to navigate
+                data storage.  This is like \textit{Propositional Logic}.
+            \item non-navigational (declarative): Logical relations and have
+                quantification. This is in \textit{First Order Logic}. An
+                example of quantification is the SQL \texttt{FROM} keyword.
+        \end{itemize}
+\end{description}
+
+\subsection*{Important Items}
+\begin{itemize}
+    \item Physical data independence
+    \item Can have non-navigational languages.
+\end{itemize}
+
+\section*{Database Users}
+
+\begin{description}
+    \item[End User]\hfill
+        \begin{itemize}
+            \item Accesses database indirectly through application
+            \item Generates ad-hoc queries using DBML
+        \end{itemize}
+    \item[Application Developer]\hfill
+        \begin{itemize}
+            \item Design and develop applications that access database
+        \end{itemize}
+    \item[Database Administrator (DBA)]\hfill
+        \begin{itemize}
+            \item manages conceptual schema
+            \item Assist with application view integration
+            \item monitors and tunes performance
+            \item loads, reformats, populates data
+        \end{itemize}
+\end{description}
+
+\section*{Transactions}
+
+\textbf{Key Idea}: Ever application may think it is the only application
+accessing data. This complicates things, because when things run concurrently,
+mistakes could be made.
+
+\begin{description}
+    \item[Transaction:] A \textbf{Transaction} is an application-specified
+        atomic and durable unit of work.
+\end{description}
+
+The properties of a transaction ensured by a DBMS are \textbf{ACID}:
+\begin{description}
+    \item[Atomic] -- A transaction occurs completely or not at all.
+    \item[Consistent] -- each transaction preserves the consistency of the
+        database
+    \item[Isolated] -- one transaction does not interfere with another.
+    \item[Durable] --  once completed, the changes are permanant. This ensures
+        reliability.
+\end{description}
+
+
+\subsection*{Three main ideas}
+
+\begin{itemize}
+    \item Data independence -- data is organized properly.
+    \item Transactions -- data integrity, allows concurrency.
+    \item Quantification -- don't need to know internal structure.
+\end{itemize}
+
+
+\end{document}
+% vim: tw=80
