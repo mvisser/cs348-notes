@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Sep 27, 2011}
+\maketitle
+
+\section{More Relational Algebra\dots}
+
+The statements on the slide on algebraic equivalences are essentially the
+beginnings of query optimization.
+
+\section{Structured Query Language (SQL)}
+
+\begin{itemize}
+    \item DML -- \texttt{SELECT}, \texttt{INSERT}, \texttt{UPDATE}, data
+        manipulation
+    \item DDL -- \texttt{ CREATE}, \texttt{DROP} (schema commands). \texttt{GRANT},
+        \texttt{REVOKE} (Security commands).
+\end{itemize}
+
+We can translate the sql query
+\begin{verbatim}
+select LastName, HireDate
+from Employee
+where Salary > 100000
+\end{verbatim}
+to $\pi_{ \texttt{LastName,HireDate} }(\sigma_{\texttt{Salary} >
+100000}(\texttt{Employee}))$
+
+This is not exactly equivalent, if we want it to be we need to use
+\texttt{select distinct}. This is because SQL will store duplicate tuples, but
+relational algebra does not allow that.
+
+Conditions in SQL can use arithmetic operators, comparisons, and logical
+connectives.
+
+\end{document}
+% vim: tw=80
