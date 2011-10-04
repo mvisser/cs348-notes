@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Oct  4, 2011}
+\maketitle
+
+\section{Subqueries}
+
+Subqueries can return multiple data sets to filter by, \textit{etc}.
+
+They can also be used in a \texttt{with} clause (slide 23).
+
+\section{Outer Joins}
+
+Using a \texttt{left outer join} is essentially just syntactic sugar. Can be
+written as a union. Essentially contains all records from left table.
+
+Query on slide 24 equivalent to:
+\begin{verbatim}
+( select deptno, deptname, null as lastname
+  from department
+  where mgrno is null
+  and deptno like 'D%' )
+union
+( select deptno, deptname, lastname
+  from department d
+       employee e
+  where e.empno = d.empno
+  and deptno like 'D%' )
+\end{verbatim}
+
+\subsection{Groups and Aggregates}
+
+Can sort with the \texttt{group by} clause.
+
+The \texttt{having} clause can filter by aggregate functions.  If you have a
+group by and are sorting by aggregates and want to filter them out, you can do
+this.
+
+\end{document}
+% vim: tw=80
