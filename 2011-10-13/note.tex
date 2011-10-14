@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Oct 13, 2011}
+\maketitle
+
+I missed the part about triggers. Oh well.
+
+\section{SQL Application Development}
+
+\subsection{Embedded SQL}
+
+The application is put through a SQL preprocessor, then put through the C
+compiler.
+
+The application has three possible steps for a transaction:
+\begin{enumerate}
+	\item start transaction (implicit)
+	\item commit --- once the work is done, write it
+	\item abort --- if there was an error then don't commit and put everything
+		back the way it was.
+\end{enumerate}
+
+\emph{Host variables} are used to send and receive values from the database
+system. These are variables that the SQL language shares with the C language.
+Information can be sent and recieved using these host variables.
+
+The host variables correspond to a SQL type.
+
+What about \texttt{NULL}? They are represented by a special return code (100).
+
+\subsection{Cursors in Embedded SQL}
+
+The cursor has a pointer to a tuple. You can use this to iterate results.
+
+
+
+
+\end{document}
+% vim: tw=80
