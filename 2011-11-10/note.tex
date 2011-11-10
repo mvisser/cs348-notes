@@ -1,0 +1,92 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Nov 10, 2011}
+\maketitle
+
+\section{Functional Dependencies}
+
+\textbf{What is the order of $F+$?}
+
+Say we have relation $R$ with attributes $\{A_1,\dots,A_n\}$.
+
+Consider $F = \{A1\to A_1\dots A_n\}$. $\implies (A_1 \to Z) \in F^{+}$ for any
+subset $Z$ of $\{A_1,\dots,A_n\}$.
+
+Therefore the order of $F^+ \in \Omega(e^n)$.
+
+\begin{enumerate}
+	\item $X \to Y$
+	\item Does only allowing $X \to Y$ reduce expressiveness?
+	\item Does only allowing $A,B\to C$ or $A \to C$ reduce expressiveness?
+\end{enumerate}
+
+\section{Decompositions}
+
+We want a decomposition to take a set of attributes and break them up into
+relations that are a subset of those attributes. We want this to not:
+\begin{itemize}
+	\item Lose information
+	\item complicate checking of constraints
+	\item contain anomalies (or at least we want it to contain fewer of those)
+\end{itemize}
+
+A decomposition is lossy unless
+\[
+R_1 \cap R_2 \to R_1\]
+or
+\[
+R_1 \cap R_2 \to R_2\]
+
+A decomposition is better for dependency preservation if we can check all of the
+constraints without joining the tables. If we have to join then we call that
+constraint an \emph{interrelational constraint}.
+
+\section{Normal Forms}
+
+We want something anomaly free and nonredundant.
+
+\subsection{BCNF}
+
+Schema $R$ is in BCNF (w.r.t. $F$) iff whenever $(X \to Y) \in F^+$ and
+$XY \subseteq R$, then either
+\begin{itemize}
+	\item $(X \to Y)$is trivial \textit{i.e.}, $Y \subseteq X$ or
+	\item $X$ is a superkey of $R$.
+\end{itemize}
+
+Why does this avoid redundancy?
+
+It splits tables so that we have tables with keys that joined together can give
+the original.
+
+It is possible to have a functional dependancy that does not allow for BCNF.
+
+\subsection{Third Normal Form}
+
+A schema $R$ is in 3NF iff whenever $(X \to Y \in F^+)$ and $XY \subseteq R$,
+then either
+\begin{itemize}
+	\item $(X \to Y)$ is trivial
+	\item $x$ is a soperkey of $R$ or 
+	\item each attribute in $Y\setminus X$ is contained in a candidate key of
+		$R$.
+\end{itemize}
+
+This definition is looser than BCNF because it allows redundancy.
+
+\end{document}
+% vim: tw=80
