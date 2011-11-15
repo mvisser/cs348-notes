@@ -1,0 +1,31 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Nov 15, 2011}
+\maketitle
+
+\section{Normal Form}
+
+\begin{itemize}
+	\item A primary key value usually implies some sort of object, and usually
+		implies other fields about the object, or other objects themselves.
+	\item A BCNF decomposition does not always preserve dependencies.
+	\item We can find minimal covers to get dependencies with only one variable
+		on the left side. Then it's easier to put things in BCNF.
+\end{itemize}<++>
+
+\end{document}
+% vim: tw=80
