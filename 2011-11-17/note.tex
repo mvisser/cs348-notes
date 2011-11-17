@@ -1,0 +1,101 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Nov 17, 2011}
+\maketitle
+
+\section{Normal Forms}
+
+\begin{itemize}
+	\item 3\textsuperscript{rd} normal form preserves dependancies better than
+		BCNF.
+	\item 3\textsuperscript{rd} normal form has an algorithm that gives a
+		depedancy preserving decomposition.
+\end{itemize}
+\section{Transactions}
+
+\begin{itemize}
+	\item Why do we need transactions?
+	\item What is serializability?
+	\item How do we do transactions in SQL?
+	\item How do we implement transactions?
+\end{itemize}
+
+\subsection{Transactions}
+
+\begin{itemize}
+	\item Applications can group together two or more operations.
+	\item Operations are assumed to take the database from a consistent state
+		to another consistent state.
+	\item Transactions are one or more operations in sqeuence.
+\end{itemize}
+
+There are many causes for failure, in two levels:
+\begin{enumerate}
+	\item program execution failure, bugs in the CPU
+	\item storage failure
+\end{enumerate}
+
+Examples of problems caused by concurrency:
+\begin{itemize}
+	\item If we have a failure during two updates that are dependant, the
+		database would be inconcistent.
+	\item If we read while data is being updated in multiple tables, we could
+		have an inconsistent view of the database.
+	\item We could read data, do some calculation, then do an update. What if
+		data is updated in between those two operations?
+\end{itemize}
+
+The ACID principle is:
+
+\begin{tabular}{lp{0.8\textwidth}}
+	\textbf{Atomic} & All operations run or none do at all.\\
+	\textbf{Consistency} & Each transaction preserves database consistency.\\
+	\textbf{Isolated} & Concurrent transactions do not interfere with each-other.\\
+	\textbf{Durable} & Once complete, a transactions changes are permanent. We
+	won't lose any data once a transaction is complete.\\
+\end{tabular}
+
+\subsection{Serializability}
+
+\begin{itemize}
+	\item The server will schedule the operations so that it seems as though
+		they are run sequentially, but actually runs them concurrently if
+		possible.
+	\item Two operations conflict if
+		\begin{enumerate}
+			\item They belong to different transactions
+			\item They operate on the same object, and
+			\item At least one of the operations is a write
+		\end{enumerate}
+\end{itemize}
+
+\subsection{Transactions in SQL}
+
+\begin{itemize}
+	\item We can abort or commit a transaction. Usually abort on some error or
+		logic, commit if everything goes well.
+	\item A transaction begins when a client executes a sql command.
+	\item Two commands are given to terminate a transaction: \texttt{COMMIT} and
+		\texttt{ROLLBACK}.
+\end{itemize}
+
+
+
+\subsection{Implementing Transactions}
+
+\end{document}
+% vim: tw=80
