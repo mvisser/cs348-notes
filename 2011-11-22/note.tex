@@ -1,0 +1,43 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+\usepackage{fullpage}
+
+\begin{document}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Nov 22, 2011}
+\maketitle
+
+\section{Serializing Transactions}
+
+We have isolation levels:
+\begin{enumerate}[1.]
+	\item Read Uncommitted --- read transaction data even if it's uncommitted
+	\item Read Committed --- Read committed data from transactions
+	\item Repeatable Read --- Reads are repeatable if a transaction is in the
+		middle of something.
+	\item Serializability
+\end{enumerate}
+
+The implementation of transactions in a DBMS has to
+\begin{itemize}
+	\item Control concurrency
+	\item Ensure transaction stability
+\end{itemize}
+
+\subsection{Concurrency Control}
+
+
+
+
+\end{document}
+% vim: tw=80
