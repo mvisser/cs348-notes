@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{parskip}
+\usepackage{enumerate}
+\usepackage{stmaryrd}
+\usepackage{listings}
+
+\begin{document}
+
+\newtheorem{mydef}{Definition}
+
+\title{CS 348 Notes}
+\author{Matthew Visser}
+\date{Sep 13, 2011}
+\maketitle
+
+\section{Functional Dependancies and Normal Forms}
+
+\section{Normal Forms}
+
+A relation is in BCNF if for every FD $X \to A \in F$
+\begin{itemize}
+	\item $X \to A$ is trivial, \textit{i.e.} $A \in X$ \emph{or}
+	\item $X$ is a superkey, \textit{i.e.}, $X \to R$.
+\end{itemize}
+
+A relation is in 3NF if for every FD $X \to A \in F$
+\begin{itemize}
+	\item $X \to A$ is trivial, \textit{i.e.} $A \in X$ \emph{or}
+	\item $X$ is a superkey, \textit{i.e.}, $X \to R$.
+	\item $A$ is part of some key for $R$.
+\end{itemize}
+
+\subsection{Minimal Cover}
+
+\begin{enumerate}
+	\item Put each FD in standard form, \textit{i.e.}, $X \to A$ where $A$ is a
+		single attribute.
+	\item Minimize the left side. If we have a rule $X \to A$ where $X$ has
+		multiple attributes, if $B \in X$ and $X \setminus B \to B$ then remove
+		$B$ from $X$.
+	\item For the remaining FDs, $G$, see if one can be deleted without having
+		the closure of our minimal cover, $G^+ \neq F^+$.
+\end{enumerate}
+
+\subsection{BCNF Decomposition}
+
+\begin{enumerate}
+	\item For $R$ not in BCNF, let $X \subset R$, $A$ be a single attribute in
+		$R$, and $X \to A$ be an FD that causes a violation of BCNF. Decompose
+		$R$ to $R \setminus A, XA$.
+	\item If $R\setminus A$ or $XA$ is not in BCNF, recurse on that relation.
+\end{enumerate}
+
+\subsection{3NF Decomposition}
+
+We can use the same algorithm as BCNF. If we want something dependency
+preserving, we can do this.
+\begin{enumerate}
+	\item Do the BCNF decomposition algorithm.
+	\item Find the minimal cover of each relation.
+	\item Identify the set $N$ of dependencies in $F$ that is not preserved,
+		\textit{i.e.}, not included in the closure of the union of the FD's of
+		each sub-relation.
+	\item For each FD $(X \to A) \in N$, create a relation schema $XA$ and add
+		it to the decomposition of $R$.
+\end{enumerate}
+
+\end{document}
+% vim: tw=80
